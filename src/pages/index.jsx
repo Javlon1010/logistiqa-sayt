@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialCarousel from '@/components/TestimonialCarousel';
 import Footer from '@/components/Footer';
+import LocalGuidesMap from '@/components/LocalGuidesMap';
 
 const services = [
   {
@@ -68,6 +69,19 @@ export default function Home() {
 
         <section className="mx-auto max-w-7xl px-6 py-24">
           <TestimonialCarousel />
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 py-24">
+          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+            <div className="space-y-6">
+              <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Champion Shipping Logistics LLC</p>
+              <h2 className="text-3xl font-semibold text-slate">Local Guides</h2>
+              <p className="max-w-xl text-base leading-8 text-slate/80">
+                Explore service coverage across the United States. Hover a state to see its name.
+              </p>
+            </div>
+            <LocalGuidesMap />
+          </div>
         </section>
 
         <section className="mx-auto max-w-7xl px-6 py-24">
