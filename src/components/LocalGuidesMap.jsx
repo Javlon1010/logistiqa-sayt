@@ -53,16 +53,44 @@ export default function LocalGuidesMap() {
   }
 
   return (
-    <div className="rounded-[2rem] border border-slate/10 bg-white p-6 shadow-soft">
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-sm font-medium text-slate/70">United States</p>
-        <p className="text-sm font-semibold text-slate">{activeName || 'Hover a state'}</p>
+    <div className="overflow-hidden rounded-[2rem] bg-gradient-to-b from-sky-100 via-slate-100 to-white p-6 shadow-soft">
+      <div className="grid gap-8 lg:grid-cols-[1.6fr_0.9fr] lg:items-start">
+        <div className="space-y-5">
+          <div className="space-y-2">
+            <p className="text-sm uppercase tracking-[0.28em] text-slate/60">Sherpa Auto Transport Local Guides</p>
+            <h2 className="text-3xl font-semibold text-slate">Explore service coverage across the United States</h2>
+            <p className="max-w-2xl text-sm leading-7 text-slate/70">
+              Hover over any state to see where our local guides are available and learn more about coverage.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-3xl bg-white/90 p-5 text-slate shadow-soft">
+              <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Active state</p>
+              <p className="mt-2 text-lg font-semibold text-slate">{activeName || 'Hover a state'}</p>
+            </div>
+            <div className="rounded-3xl bg-white/90 p-5 text-slate shadow-soft">
+              <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Service area</p>
+              <p className="mt-2 text-lg font-semibold text-slate">United States coverage</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4 rounded-[2rem] bg-slate-950/95 p-6 text-white shadow-soft">
+          <button className="btn-primary w-full bg-slate-900 text-white hover:bg-slate-800">
+            Get a Free Quote
+          </button>
+          <div className="rounded-3xl border border-white/10 bg-white/10 p-5 text-center">
+            <p className="text-sm uppercase tracking-[0.24em] text-slate-200">Call us</p>
+            <p className="mt-2 text-xl font-semibold">877-650-1231</p>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-3xl bg-surface">
+      <div className="mt-8 overflow-hidden rounded-[2rem] bg-slate-950 p-4">
         <ComposableMap
           projection="geoAlbersUsa"
-          style={{ width: '100%', height: 'auto' }}
+          style={{ width: '100%', height: '520px' }}
           aria-label="United States map with states"
         >
           <Geographies geography={geoJson}>
@@ -75,21 +103,21 @@ export default function LocalGuidesMap() {
                   onMouseLeave={() => setActiveName('')}
                   style={{
                     default: {
-                      fill: '#40586d',
+                      fill: '#1D4ED8',
+                      stroke: '#ffffff',
+                      strokeWidth: 1,
+                      outline: 'none',
+                    },
+                    hover: {
+                      fill: '#0EA5E9',
                       stroke: '#ffffff',
                       strokeWidth: 1.5,
                       outline: 'none',
                     },
-                    hover: {
-                      fill: '#3B729F',
-                      stroke: '#ffffff',
-                      strokeWidth: 2,
-                      outline: 'none',
-                    },
                     pressed: {
-                      fill: '#3B729F',
+                      fill: '#0EA5E9',
                       stroke: '#ffffff',
-                      strokeWidth: 2,
+                      strokeWidth: 1.5,
                       outline: 'none',
                     },
                   }}
