@@ -4,7 +4,7 @@ import { feature } from 'topojson-client';
 
 const TOPO_JSON_URL = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
 
-export default function LocalGuidesMap() {
+export default function LocalGuidesMap({ selectedState, onStateClick }) {
   const [topology, setTopology] = useState(null);
   const [error, setError] = useState(null);
   const [activeName, setActiveName] = useState('');
@@ -98,34 +98,39 @@ export default function LocalGuidesMap() {
           >
             <Geographies geography={geoJson}>
               {({ geographies }) =>
-                geographies.map((geo) => (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    onMouseEnter={() => setActiveName(geo.properties?.name || '')}
-                    onMouseLeave={() => setActiveName('')}
-                    style={{
-                      default: {
-                        fill: '#1D4ED8',
-                        stroke: '#ffffff',
-                        strokeWidth: 1,
-                        outline: 'none',
-                      },
-                      hover: {
-                        fill: '#0EA5E9',
-                        stroke: '#ffffff',
-                        strokeWidth: 1.5,
-                        outline: 'none',
-                      },
-                      pressed: {
-                        fill: '#0EA5E9',
-                        stroke: '#ffffff',
-                        strokeWidth: 1.5,
-                        outline: 'none',
-                      },
-                    }}
-                  />
-                ))
+                geographies.map((geo) => {
+                  const stateName = geo.properties?.name || '';
+                  const isSelected = stateName === selectedState;
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      onMouseEnter={() => setActiveName(stateName)}
+                      onMouseLeave={() => setActiveName('')}
+                      onClick={() => onStateClick && onStateClick(stateName)}
+                      style={{
+                        default: {
+                          fill: isSelected ? '#ff0000' : '#1D4ED8',
+                          stroke: '#ffffff',
+                          strokeWidth: 1,
+                          outline: 'none',
+                        },
+                        hover: {
+                          fill: '#0EA5E9',
+                          stroke: '#ffffff',
+                          strokeWidth: 1.5,
+                          outline: 'none',
+                        },
+                        pressed: {
+                          fill: '#0EA5E9',
+                          stroke: '#ffffff',
+                          strokeWidth: 1.5,
+                          outline: 'none',
+                        },
+                      }}
+                    />
+                  );
+                })
               }
             </Geographies>
           </ComposableMap>

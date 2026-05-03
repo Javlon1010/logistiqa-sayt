@@ -31,9 +31,6 @@ export default function Header() {
           <Link href="/contact" className="btn-secondary">
             Contact
           </Link>
-          <Link href="/login" className="btn-primary">
-            Login
-          </Link>
         </div>
 
         <button

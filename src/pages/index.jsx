@@ -4,6 +4,7 @@ import ServiceCard from '@/components/ServiceCard';
 import TestimonialCarousel from '@/components/TestimonialCarousel';
 import Footer from '@/components/Footer';
 import LocalGuidesMap from '@/components/LocalGuidesMap';
+import { useState } from 'react';
 
 const services = [
   {
@@ -26,7 +27,17 @@ const services = [
   },
 ];
 
+const stateData = {
+  'California': ['123 Main St, Los Angeles, CA', '456 Oak Ave, San Francisco, CA'],
+  'Texas': ['789 Pine Rd, Houston, TX', '101 Elm St, Dallas, TX'],
+  'New York': ['202 Broadway, New York, NY'],
+  'Florida': ['303 Beach Blvd, Miami, FL'],
+  'Illinois': ['404 Lake St, Chicago, IL'],
+  // Add more states as needed
+};
+
 export default function Home() {
+  const [selectedState, setSelectedState] = useState(null);
   return (
     <div className="min-h-screen bg-surface text-slate">
       <Header />
@@ -72,7 +83,7 @@ export default function Home() {
         </section>
 
         <section className="mx-auto max-w-7xl px-6 py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div className="space-y-10">
             <div className="space-y-6">
               <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Champion Shipping Logistics LLC</p>
               <h2 className="text-3xl font-semibold text-slate">Local Guides</h2>
@@ -80,7 +91,32 @@ export default function Home() {
                 Explore service coverage across the United States. Hover a state to see its name.
               </p>
             </div>
-            <LocalGuidesMap />
+            <LocalGuidesMap selectedState={selectedState} onStateClick={setSelectedState} />
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-6 py-24">
+          <div className="space-y-6">
+            <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Service Locations</p>
+            <h2 className="text-3xl font-semibold text-slate">Amerika bo'ylab qaysi joylarda firma borligi</h2>
+            <p className="max-w-xl text-base leading-8 text-slate/80">Select a state to see our service locations for car shipping and delivery.</p>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {Object.keys(stateData).map(state => (
+                <button key={state} onClick={() => setSelectedState(state)} className="btn-secondary">
+                  {state}
+                </button>
+              ))}
+            </div>
+            {selectedState && (
+              <div className="mt-8 rounded-[2rem] bg-white p-6 shadow-soft">
+                <h3 className="text-xl font-semibold text-slate">{selectedState} Locations</h3>
+                <ul className="mt-4 space-y-2">
+                  {stateData[selectedState].map((address, idx) => (
+                    <li key={idx} className="text-sm text-slate/80">{address}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </section>
 
@@ -107,23 +143,30 @@ export default function Home() {
         </section>
 
         <section className="mx-auto max-w-7xl px-6 py-24">
-          <div className="grid gap-10 rounded-[2rem] bg-primary/5 p-8 lg:grid-cols-[1fr_0.9fr]">
-            <div className="space-y-4">
+          <div className="rounded-[2rem] bg-primary/5 p-8">
+            <div className="space-y-6 max-w-2xl">
               <p className="text-sm uppercase tracking-[0.24em] text-primary">Contact</p>
-              <h2 className="text-3xl font-semibold text-slate">Send a Request and We'll Get Back to You</h2>
+              <h2 className="text-3xl font-semibold text-slate">Biz bilan bog'lanish</h2>
               <p className="max-w-xl text-base leading-8 text-slate/80">
                 Contact us now for reliable logistics solutions. We know how to get your cargo where it needs to go.
               </p>
             </div>
-            <div className="space-y-4 rounded-3xl bg-white p-6 text-slate shadow-soft">
-              <p className="font-semibold">Quick contact</p>
-              <form className="grid gap-4">
-                <input type="text" placeholder="Name" className="rounded-3xl border border-slate/10 bg-surface px-4 py-3 text-sm text-slate outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
-                <input type="email" placeholder="Email" className="rounded-3xl border border-slate/10 bg-surface px-4 py-3 text-sm text-slate outline-none focus:border-primary focus:ring-2 focus:ring-primary/10" />
-                <button type="button" className="btn-primary w-full">
-                  Request a Call
-                </button>
-              </form>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+              <div className="rounded-3xl bg-white p-6 text-slate shadow-soft">
+                <p className="font-semibold">Phone & Contact</p>
+                <div className="mt-4 space-y-3 text-sm text-slate/80">
+                  <p><strong>Asosiy telefon:</strong> +998 71 123 45 67</p>
+                  <p><strong>Qo'shimcha telefon:</strong> +998 99 765 43 21</p>
+                  <p><strong>Email:</strong> support@championlogistics.uz</p>
+                  <p><strong>Manzil:</strong> Tashkent, Uzbekistan</p>
+                </div>
+              </div>
+              <div className="rounded-3xl bg-white p-6 text-slate shadow-soft">
+                <p className="font-semibold">We’re here to help</p>
+                <p className="mt-4 text-sm leading-7 text-slate/80">
+                  Our team is ready to support your freight, customs, and warehousing needs. Reach out for fast help and reliable logistics advice.
+                </p>
+              </div>
             </div>
           </div>
         </section>
