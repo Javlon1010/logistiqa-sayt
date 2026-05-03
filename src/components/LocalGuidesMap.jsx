@@ -88,44 +88,48 @@ export default function LocalGuidesMap() {
       </div>
 
       <div className="mt-8 overflow-hidden rounded-[2rem] bg-slate-950 p-4">
-        <ComposableMap
-          projection="geoAlbersUsa"
-          style={{ width: '100%', height: '520px' }}
-          aria-label="United States map with states"
-        >
-          <Geographies geography={geoJson}>
-            {({ geographies }) =>
-              geographies.map((geo) => (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  onMouseEnter={() => setActiveName(geo.properties?.name || '')}
-                  onMouseLeave={() => setActiveName('')}
-                  style={{
-                    default: {
-                      fill: '#1D4ED8',
-                      stroke: '#ffffff',
-                      strokeWidth: 1,
-                      outline: 'none',
-                    },
-                    hover: {
-                      fill: '#0EA5E9',
-                      stroke: '#ffffff',
-                      strokeWidth: 1.5,
-                      outline: 'none',
-                    },
-                    pressed: {
-                      fill: '#0EA5E9',
-                      stroke: '#ffffff',
-                      strokeWidth: 1.5,
-                      outline: 'none',
-                    },
-                  }}
-                />
-              ))
-            }
-          </Geographies>
-        </ComposableMap>
+        <div className="h-[520px] w-full">
+          <ComposableMap
+            projection="geoAlbersUsa"
+            width={980}
+            height={520}
+            className="h-full w-full"
+            aria-label="United States map with states"
+          >
+            <Geographies geography={geoJson}>
+              {({ geographies }) =>
+                geographies.map((geo) => (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    onMouseEnter={() => setActiveName(geo.properties?.name || '')}
+                    onMouseLeave={() => setActiveName('')}
+                    style={{
+                      default: {
+                        fill: '#1D4ED8',
+                        stroke: '#ffffff',
+                        strokeWidth: 1,
+                        outline: 'none',
+                      },
+                      hover: {
+                        fill: '#0EA5E9',
+                        stroke: '#ffffff',
+                        strokeWidth: 1.5,
+                        outline: 'none',
+                      },
+                      pressed: {
+                        fill: '#0EA5E9',
+                        stroke: '#ffffff',
+                        strokeWidth: 1.5,
+                        outline: 'none',
+                      },
+                    }}
+                  />
+                ))
+              }
+            </Geographies>
+          </ComposableMap>
+        </div>
       </div>
     </div>
   );
