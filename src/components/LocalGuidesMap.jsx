@@ -57,15 +57,15 @@ export default function LocalGuidesMap({ selectedState, onStateClick }) {
       <div className="grid gap-8 lg:grid-cols-[1.6fr_0.9fr] lg:items-start">
         <div className="space-y-5">
           <div className="space-y-2">
-            <p className="text-sm uppercase tracking-[0.28em] text-slate/60">Sherpa Auto Transport Local Guides</p>
+            <p className="text-sm uppercase tracking-[0.28em] text-slate/60">Champion Shipping Logistics coverage</p>
             <h2 className="text-3xl font-semibold text-slate">Explore service coverage across the United States</h2>
-            <p className="max-w-2xl text-sm leading-7 text-slate/70">
+            <p className="max-w-2xl text-sm leading-7 text-slate/70">       
               Hover over any state to see where our local guides are available and learn more about coverage.
             </p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl bg-white/90 p-5 text-slate shadow-soft">
+            <div className="rounded-3xl bg-white/90 p-5 text-slate shadow-soft" aria-live="polite">
               <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Active state</p>
               <p className="mt-2 text-lg font-semibold text-slate">{activeName || 'Hover a state'}</p>
             </div>
@@ -104,8 +104,14 @@ export default function LocalGuidesMap({ selectedState, onStateClick }) {
                   return (
                     <Geography
                       key={geo.rsmKey}
-                      geography={geo}
-                      onMouseEnter={() => setActiveName(stateName)}
+                      geography={geo}                      tabIndex={0}
+                      role="button"
+                      aria-label={`Select ${stateName}`}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          onStateClick && onStateClick(stateName);
+                        }
+                      }}                      onMouseEnter={() => setActiveName(stateName)}
                       onMouseLeave={() => setActiveName('')}
                       onClick={() => onStateClick && onStateClick(stateName)}
                       style={{

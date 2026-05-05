@@ -37,9 +37,10 @@ export default function Header() {
           type="button"
           onClick={() => setOpen(!open)}
           className="inline-flex items-center justify-center rounded-xl border border-slate/10 bg-white p-3 text-slate transition hover:bg-slate/5 md:hidden"
-          aria-label="Open menu"
+          aria-label="Toggle menu"
+          aria-expanded={open}
         >
-          <span className="text-xl">{open ? '✕' : '☰'}</span>
+          <span className="text-xl">{open ? '×' : '☰'}</span>
         </button>
       </div>
 

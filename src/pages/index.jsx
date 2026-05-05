@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import ServiceCard from '@/components/ServiceCard';
@@ -38,8 +39,16 @@ const stateData = {
 
 export default function Home() {
   const [selectedState, setSelectedState] = useState(null);
+  const selectedLocations = selectedState ? stateData[selectedState] ?? [] : [];
   return (
     <div className="min-h-screen bg-surface text-slate">
+      <Head>
+        <title>Champion Shipping Logistics | Freight Shipping & Warehousing</title>
+        <meta name="description" content="Champion Shipping Logistics delivers reliable freight shipping, customs support, and warehousing across the United States." />
+        <meta property="og:title" content="Champion Shipping Logistics" />
+        <meta property="og:description" content="Reliable freight, warehousing, and customs services with clear pricing and trusted coverage." />
+        <meta property="og:type" content="website" />
+      </Head>
       <Header />
       <main>
         <Hero />
@@ -98,7 +107,7 @@ export default function Home() {
         <section className="mx-auto max-w-7xl px-6 py-24">
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-[0.24em] text-slate/60">Service Locations</p>
-            <h2 className="text-3xl font-semibold text-slate">Amerika bo'ylab qaysi joylarda firma borligi</h2>
+            <h2 className="text-3xl font-semibold text-slate">Service locations across our coverage</h2>
             <p className="max-w-xl text-base leading-8 text-slate/80">Select a state to see our service locations for car shipping and delivery.</p>
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {Object.keys(stateData).map(state => (
@@ -110,11 +119,15 @@ export default function Home() {
             {selectedState && (
               <div className="mt-8 rounded-[2rem] bg-white p-6 shadow-soft">
                 <h3 className="text-xl font-semibold text-slate">{selectedState} Locations</h3>
-                <ul className="mt-4 space-y-2">
-                  {stateData[selectedState].map((address, idx) => (
-                    <li key={idx} className="text-sm text-slate/80">{address}</li>
-                  ))}
-                </ul>
+                {selectedLocations.length > 0 ? (
+                  <ul className="mt-4 space-y-2">
+                    {selectedLocations.map((address, idx) => (
+                      <li key={idx} className="text-sm text-slate/80">{address}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-4 text-sm text-slate/80">This state has no offices in our region yet. Please choose another state or contact support.</p>
+                )}
               </div>
             )}
           </div>
